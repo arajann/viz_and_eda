@@ -133,3 +133,23 @@ weather_df %>%
   
 ```
 
+
+## Limitations
+
+
+```{r}
+weather_df %>% 
+  group_by(name) %>% 
+  summarize(cor_tmin_tmax = cor(tmin,tmax,use="complete"))
+
+weather_df %>%
+  group_by(name) %>%
+  mutate(
+    temp_change = tmax - lag(tmax),
+    tmax_diff=tmax-temp_change
+         ) %>%
+  summarize(
+    temp_change_sd = sd(temp_change, na.rm = TRUE),
+    temp_change_max = max(temp_change, na.rm = TRUE))
+```
+
